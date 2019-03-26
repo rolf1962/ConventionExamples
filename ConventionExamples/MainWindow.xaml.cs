@@ -23,6 +23,18 @@ namespace ConventionExamples
         public MainWindow()
         {
             InitializeComponent();
+
+            Model.Model model = new Model.Model();
+
+            List<Model.Person> filteredPersonsList = model.Personen
+                .Where(p => p.Nachname != null && p.Nachname.StartsWith("x", StringComparison.InvariantCultureIgnoreCase))
+                .Select(p => new Model.Person()
+                {
+                    Nachname = p.Nachname,
+                    Geburtsdatum = p.Geburtsdatum,
+                    Vornamen = p.Vornamen
+                })
+                .ToList();
         }
     }
 }
